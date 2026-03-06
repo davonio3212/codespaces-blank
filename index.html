@@ -1,1 +1,82 @@
 <h1>alterei hello world!</h1>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Jogo do Clique</title>
+
+<style>
+body{
+    font-family: Arial;
+    text-align: center;
+    background: #f0f0f0;
+}
+
+#gameArea{
+    width: 400px;
+    height: 400px;
+    background: white;
+    margin: auto;
+    border: 2px solid black;
+    position: relative;
+}
+
+#target{
+    width: 50px;
+    height: 50px;
+    background: red;
+    position: absolute;
+    cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<h1>🎯 Jogo do Clique</h1>
+<p>Tempo: <span id="time">10</span> segundos</p>
+<p>Pontos: <span id="score">0</span></p>
+
+<div id="gameArea">
+    <div id="target"></div>
+</div>
+
+<script>
+let score = 0;
+let time = 10;
+
+const target = document.getElementById("target");
+const scoreDisplay = document.getElementById("score");
+const timeDisplay = document.getElementById("time");
+const gameArea = document.getElementById("gameArea");
+
+function moveTarget(){
+    const x = Math.random() * (gameArea.clientWidth - 50);
+    const y = Math.random() * (gameArea.clientHeight - 50);
+
+    target.style.left = x + "px";
+    target.style.top = y + "px";
+}
+
+target.onclick = function(){
+    score++;
+    scoreDisplay.textContent = score;
+    moveTarget();
+}
+
+moveTarget();
+
+const timer = setInterval(function(){
+    time--;
+    timeDisplay.textContent = time;
+
+    if(time <= 0){
+        clearInterval(timer);
+        alert("Fim de jogo! Sua pontuação: " + score);
+    }
+},1000);
+
+</script>
+
+</body>
+</html>
